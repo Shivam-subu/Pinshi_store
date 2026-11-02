@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINSHI | A Little Extra, Just Like You.</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #fffdf9;
+    color: #332820;
+}
+
+.announcement {
+    background: #332820;
+    color: white;
+    text-align: center;
+    padding: 11px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+header {
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee7dc;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    letter-spacing: 5px;
+    color: #b08a4a;
+}
+
+nav a {
+    text-decoration: none;
+    color: #332820;
+    margin: 0 15px;
+    font-size: 13px;
+}
+
+.cart {
+    border: 1px solid #c6a56b;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+}
+
+.hero {
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    padding: 70px 10%;
+    background: linear-gradient(90deg, #f5eee5, #fffdf9);
+}
+
+.hero-content {
+    max-width: 500px;
+}
+
+.hero small {
+    color: #b08a4a;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 68px);
+    line-height: 1.15;
+    margin: 22px 0;
+}
+
+.hero p {
+    color: #776b60;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 28px;
+    background: #b08a4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+}
+
+.section {
+    padding: 75px 7%;
+    text-align: center;
+}
+
+.section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #887c70;
+    margin-bottom: 40px;
+}
+
+.categories, .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.category {
+    padding: 65px 20px;
+    background: #f4ece1;
+    text-decoration: none;
+    color: #332820;
+    transition: .3s;
+}
+
+.category:hover {
+    background: #eadbc7;
+    transform: translateY(-5px);
+}
+
+.category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 27px;
+}
+
+.category p {
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+.product {
+    text-align: left;
+    background: white;
+    border: 1px solid #eee7dc;
+    padding-bottom: 20px;
+}
+
+.product img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    background: #f4ece1;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #b08a4a;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    width: 100%;
+    background: #332820;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.gift {
+    background: #f2e9df;
+    padding: 85px 15px;
+}
+
+.gift h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.gift p {
+    color: #776b60;
+    margin-bottom: 25px;
+}
+
+.story {
+    max-width: 700px;
+    margin: auto;
+    line-height: 2;
+    color: #776b60;
+}
+
+.story h2 {
+    color: #332820;
+}
+
+footer {
+    background: #332820;
+    color: white;
+    padding: 55px 7%;
+    text-align: center;
+}
+
+footer h2 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 5px;
+    color: #d6b77f;
+    margin-bottom: 15px;
+}
+
+footer p {
+    font-size: 13px;
+    color: #d5c9ba;
+    margin: 12px;
+}
+
+.whatsapp {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    background: #25D366;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 13px;
+    z-index: 10;
+}
+
+@media(max-width:768px) {
+    header {
+        padding: 18px 5%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    nav {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav a {
+        margin: 0 7px;
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 65px 7%;
+        min-height: 450px;
+    }
+
+    .categories, .products {
+        grid-template-columns: 1fr;
+    }
+
+    .section h2 {
+        font-size: 30px;
+    }
+
+    .gift h2 {
+        font-size: 32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="announcement">
+YOUR SITUATIONSHIP MIGHT FADE. YOUR JEWELLERY WON'T. ✨
+</div>
+
+<header>
+    <div class="logo">PINSHI</div>
+
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#categories">SHOP</a>
+        <a href="#bestsellers">BESTSELLERS</a>
+        <a href="#story">OUR STORY</a>
+    </nav>
+
+    <div class="cart">
+        BAG (<span id="cart-count">0</span>)
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <small>EVERYDAY LUXURY</small>
+
+        <h1>A Little Extra,<br>Just Like You.</h1>
+
+        <p>
+        Some days call for a little sparkle.
+        Others call for a whole new personality.
+        Discover jewellery that makes you feel like YOU.
+        </p>
+
+        <a href="#bestsellers" class="btn">SHOP THE COLLECTION</a>
+    </div>
+</section>
+
+<section class="section" id="categories">
+
+    <h2>The Pretty Little Things</h2>
+
+    <p class="subtitle">
+        Because one is never enough.
+    </p>
+
+    <div class="categories">
+
+        <a href="#bestsellers" class="category">
+            <h3>Earrings</h3>
+            <p>A little drama for your everyday.</p>
+        </a>
+
+        <a href="#bestsellers" class="category">
+            <h3>Necklaces</h3>
+            <p>Closer to your heart.</p>
+        </a>
+
+        <a href="#bestsellers" class="category">
+            <h3>Bracelets</h3>
+            <p>Your wrist deserves an upgrade.</p>
+        </a>
+
+    </div>
+</section>
+
+<section class="section" id="bestsellers">
+
+    <h2>Everyone's Talking About These</h2>
+
+    <p class="subtitle">
+        Your next favourite obsession starts here.
+    </p>
+
+    <div class="products">
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600" alt="Gold earrings">
+
+            <div class="product-info">
+                <h3>Golden Hour Earrings</h3>
+                <p class="price">₹499</p>
+                <button class="add-btn" onclick="addToCart()">ADD TO BAG</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600" alt="Gold necklace">
+
+            <div class="product-info">
+                <h3>Forever Yours Necklace</h3>
+                <p class="price">₹699</p>
+                <button class="add-btn" onclick="addToCart()">ADD TO BAG</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600" alt="Gold bracelet">
+
+            <div class="product-info">
+                <h3>Little Love Bracelet</h3>
+                <p class="price">₹599</p>
+                <button class="add-btn" onclick="addToCart()">ADD TO BAG</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="gift">
+
+    <h2>You Like Her. We Get It.</h2>
+
+    <p>
+    Finding the perfect gift shouldn't be harder
+    than understanding her mixed signals.
+    </p>
+
+    <a href="#bestsellers" class="btn">
+        FIND HER SOMETHING PRETTY
+    </a>
+
+</section>
+
+<section class="section" id="story">
+
+    <div class="story">
+
+        <h2>A Little Extra. A Lot of You.</h2>
+
+        <br>
+
+        Life is too short for ordinary things.
+
+        At PINSHI, we believe jewellery isn't just
+        something you wear. It's how you express
+        yourself without saying a word.
+
+        From everyday coffee dates to unforgettable
+        nights, we're here to make every little
+        moment feel special.
+
+        <br><br>
+
+        <strong>Pretty Things. Real Feelings.</strong>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h2>PINSHI</h2>
+
+    <p>A Little Extra, Just Like You.</p>
+
+    <p>Pretty things. Real feelings.</p>
+
+    <p>Instagram | Contact Us | Privacy Policy</p>
+
+    <p>© 2026 PINSHI. All Rights Reserved.</p>
+
+</footer>
+
+<a class="whatsapp"
+href="https://wa.me/91XXXXXXXXXX"
+target="_blank">
+CHAT WITH US
+</a>
+
+<script>
+
+let cartCount = 0;
+
+function addToCart() {
+    cartCount++;
+
+    document.getElementById("cart-count").innerText = cartCount;
+
+    alert("Added to your PINSHI bag! ✨");
+}
+
+</script>
+
+</body>
+</html>
