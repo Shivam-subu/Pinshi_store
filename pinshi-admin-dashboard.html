@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PINSHI — Admin Dashboard</title>
+<style>
+:root{--ink:#302722;--gold:#b08a4a;--cream:#fbf8f3;--line:#eee7dc;--muted:#887d72;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:14px Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.layout{display:grid;grid-template-columns:245px 1fr;min-height:100vh}
+aside{background:var(--ink);color:white;padding:26px 18px;display:flex;flex-direction:column;gap:26px}
+.brand{font: bold 27px Georgia,serif;letter-spacing:5px;color:#e2c58e;padding:5px 12px}
+.brand small{display:block;font:10px Arial;letter-spacing:2px;color:#cbbda9;margin-top:7px}
+nav{display:grid;gap:7px}nav button{border:0;background:transparent;color:#e7ded3;text-align:left;padding:13px 14px;border-radius:8px}
+nav button.active,nav button:hover{background:#514238;color:#fff}
+.side-note{margin-top:auto;color:#cbbda9;font-size:12px;line-height:1.6;padding:12px}
+main{padding:30px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
+h1{font:36px Georgia,serif;margin:0 0 6px}.sub{color:var(--muted)}
+.pill{background:#f0e5d4;color:#80602e;padding:8px 12px;border-radius:30px;font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
+.card,.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:19px}
+.metric-label{color:var(--muted);font-size:12px}.metric{font:29px Georgia,serif;margin-top:10px}.metric-foot{font-size:11px;color:#8b806f;margin-top:7px}
+.panel{margin-bottom:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}
+h2{font:22px Georgia,serif;margin:0}.primary{background:var(--ink);color:white;border:0;border-radius:7px;padding:11px 15px}.primary:hover{background:var(--gold)}
+.secondary{background:white;border:1px solid var(--line);border-radius:7px;padding:9px 12px;color:var(--ink)}
+.danger{color:#a43d32;border:1px solid #efd7d3;background:#fff;border-radius:7px;padding:7px 10px}
+table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:13px 10px;border-bottom:1px solid #f0ece6}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
+.table-wrap{overflow:auto}.status{display:inline-block;padding:5px 9px;border-radius:30px;font-size:11px;background:#f1eee8}.status.good{background:#e9f4eb;color:#356a40}.status.low{background:#fff0df;color:#9b6424}
+.section{display:none}.section.active{display:block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+.field textarea{min-height:75px;resize:vertical}
+.form-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:15px}
+.modal{display:none;position:fixed;inset:0;background:#1d1712a8;z-index:10;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}
+.modal-box{background:white;border-radius:14px;padding:23px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.modal-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{border:0;background:#f5f1eb;border-radius:50%;width:32px;height:32px}
+.banner-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid var(--line)}
+.banner-preview{background:#f2e8dc;padding:22px;border-radius:9px;flex:1}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.note{font-size:12px;color:var(--muted);line-height:1.6}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap}
+@media(max-width:950px){.cards{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:205px 1fr}}
+@media(max-width:650px){.layout{display:block}aside{padding:14px;gap:12px}.brand{font-size:22px}nav{display:flex;overflow:auto}nav button{white-space:nowrap;padding:10px}.side-note{display:none}main{padding:18px}.top{align-items:flex-start;flex-direction:column}h1{font-size:30px}.cards{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}table{min-width:600px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="brand">PINSHI<small>STORE ADMIN</small></div>
+  <nav>
+    <button class="active" data-page="overview">Overview</button>
+    <button data-page="products">Products</button>
+    <button data-page="inventory">Inventory</button>
+    <button data-page="orders">Orders</button>
+    <button data-page="customers">Customers</button>
+    <button data-page="sales">Sales</button>
+    <button data-page="banners">Banners</button>
+  </nav>
+  <div class="side-note">A little extra, just like you.<br>Admin workspace preview</div>
+</aside>
+<main>
+  <div class="top"><div><h1 id="page-title">Overview</h1><div class="sub">Manage your PINSHI store in one place.</div></div><span class="pill">DEMO MODE · LOCAL DATA</span></div>
+
+  <section id="overview" class="section active">
+    <div class="cards">
+      <div class="card"><div class="metric-label">Total products</div><div class="metric" id="m-products">0</div><div class="metric-foot">Products in your catalogue</div></div>
+      <div class="card"><div class="metric-label">Open orders</div><div class="metric" id="m-orders">0</div><div class="metric-foot">Awaiting fulfilment</div></div>
+      <div class="card"><div class="metric-label">Customers</div><div class="metric" id="m-customers">0</div><div class="metric-foot">Saved customer records</div></div>
+      <div class="card"><div class="metric-label">Recorded sales</div><div class="metric" id="m-sales">₹0</div><div class="metric-foot">Based on demo order records</div></div>
+    </div>
+    <div class="panel"><div class="panel-head"><h2>Recent orders</h2><button class="secondary" onclick="showPage('orders')">View all</button></div><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead><tbody id="recent-orders"></tbody></table></div></div>
+    <div class="panel"><h2>Quick start</h2><p class="note">Add your real products, set stock quantities, and record test orders here. This preview saves data only in this browser. It is not connected to a live database or payment gateway yet.</p></div>
+  </section>
+
+  <section id="products" class="section">
+    <div class="panel"><div class="panel-head"><h2>Product catalogue</h2><button class="primary" onclick="openProduct()">+ Add product</button></div><div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="products-body"></tbody></table></div></div>
+  </section>
+
+  <section id="inventory" class="section">
+    <div class="panel"><div class="panel-head"><h2>Inventory overview</h2><button class="secondary" onclick="render()">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th>Available stock</th><th>Stock status</th><th>Update</th></tr></thead><tbody id="inventory-body"></tbody></table></div><p class="note">Low-stock alert is shown when quantity is 5 or fewer.</p></div>
+  </section>
+
+  <section id="orders" class="section">
+    <div class="panel"><div class="panel-head"><h2>Orders</h2><button class="primary" onclick="openOrder()">+ Add demo order</button></div><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th><th>Update</th></tr></thead><tbody id="orders-body"></tbody></table></div></div>
+  </section>
+
+  <section id="customers" class="section">
+    <div class="panel"><div class="panel-head"><h2>Customers</h2><button class="primary" onclick="openCustomer()">+ Add customer</button></div><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Orders</th><th>Actions</th></tr></thead><tbody id="customers-body"></tbody></table></div></div>
+  </section>
+
+  <section id="sales" class="section">
+    <div class="cards">
+      <div class="card"><div class="metric-label">Gross recorded sales</div><div class="metric" id="sales-total">₹0</div></div>
+      <div class="card"><div class="metric-label">Completed orders</div><div class="metric" id="sales-count">0</div></div>
+    </div>
+    <div class="panel"><h2>Sales records</h2><p class="note">Sales are calculated from orders marked Completed. This is demo reporting, not accounting or tax reporting.</p><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Amount</th></tr></thead><tbody id="sales-body"></tbody></table></div></div>
+  </section>
+
+  <section id="banners" class="section">
+    <div class="panel"><div class="panel-head"><h2>Homepage banners</h2><button class="primary" onclick="openBanner()">+ Add banner</button></div><div id="banners-body"></div><p class="note">Banner entries are stored in this browser preview. They will not change your public homepage until we connect the real website backend.</p></div>
+  </section>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box"><div class="modal-title"><h2 id="modal-title">Add item</h2><button class="close" onclick="closeModal()">×</button></div><div id="modal-content"></div></div></div>
+
+<script>
+const KEY='pinshi_admin_demo_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ products:[
+  {id:1,name:'Everyday Hoops',sku:'PIN-EAR-001',category:'Earrings',price:499,stock:18,image:'',description:'A sample everyday favourite.'},
+  {id:2,name:'Golden Hour Necklace',sku:'PIN-NEC-001',category:'Necklaces',price:699,stock:12,image:'',description:'A sample necklace.'},
+  {id:3,name:'Little Love Bracelet',sku:'PIN-BRA-001',category:'Bracelets',price:599,stock:4,image:'',description:'A sample bracelet.'}
+ ],
+ orders:[{id:1001,customer:'Aarohi Sharma',date:'2026-11-02',total:499,status:'Processing'},{id:1002,customer:'Meera Kapoor',date:'2026-11-01',total:699,status:'Completed'}],
+ customers:[{id:1,name:'Aarohi Sharma',email:'aarohi@example.com',phone:'9876543210'},{id:2,name:'Meera Kapoor',email:'meera@example.com',phone:'9876501234'}],
+ banners:[{id:1,title:'A Little Extra, Just Like You.',subtitle:'Everyday luxury, made memorable.',active:true}]
+};
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showPage(p){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.getElementById('page-title').textContent=p.charAt(0).toUpperCase()+p.slice(1)}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function render(){
+ document.getElementById('m-products').textContent=data.products.length;
+ document.getElementById('m-orders').textContent=data.orders.filter(o=>!['Completed','Cancelled'].includes(o.status)).length;
+ document.getElementById('m-customers').textContent=data.customers.length;
+ const total=data.orders.filter(o=>o.status==='Completed').reduce((s,o)=>s+Number(o.total),0);
+ document.getElementById('m-sales').textContent=money(total);document.getElementById('sales-total').textContent=money(total);
+ document.getElementById('sales-count').textContent=data.orders.filter(o=>o.status==='Completed').length;
+ const orderRows=data.orders.slice().reverse().map(o=>`<tr><td>#${o.id}</td><td>${esc(o.customer)}</td><td>${esc(o.date)}</td><td>${money(o.total)}</td><td><span class="status ${o.status==='Completed'?'good':''}">${esc(o.status)}</span></td><td><button class="secondary" onclick="cycleOrder(${o.id})">Change status</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No orders yet</td></tr>';
+ document.getElementById('orders-body').innerHTML=orderRows;
+ document.getElementById('recent-orders').innerHTML=data.orders.slice(-5).reverse().map(o=>`<tr><td>#${o.id}</td><td>${esc(o.customer)}</td><td>${esc(o.date)}</td><td>${money(o.total)}</td><td><span class="status">${esc(o.status)}</span></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No orders yet</td></tr>';
+ document.getElementById('products-body').innerHTML=data.products.map(p=>`<tr><td><b>${esc(p.name)}</b></td><td>${esc(p.sku)}</td><td>${esc(p.category)}</td><td>${money(p.price)}</td><td>${p.stock}</td><td><button class="secondary" onclick="openProduct(${p.id})">Edit</button> <button class="danger" onclick="del('products',${p.id})">Delete</button></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No products yet</td></tr>';
+ document.getElementById('inventory-body').innerHTML=data.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.sku)}</td><td>${p.stock}</td><td><span class="status ${p.stock<=5?'low':'good'}">${p.stock<=5?'Low stock':'In stock'}</span></td><td><button class="secondary" onclick="adjustStock(${p.id})">Update stock</button></td></tr>`).join('');
+ document.getElementById('customers-body').innerHTML=data.customers.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.email)}</td><td>${esc(c.phone)}</td><td>${data.orders.filter(o=>o.customer===c.name).length}</td><td><button class="danger" onclick="del('customers',${c.id})">Delete</button></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No customers yet</td></tr>';
+ document.getElementById('sales-body').innerHTML=data.orders.filter(o=>o.status==='Completed').map(o=>`<tr><td>#${o.id}</td><td>${esc(o.customer)}</td><td>${esc(o.date)}</td><td>${money(o.total)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">No completed sales yet</td></tr>';
+ document.getElementById('banners-body').innerHTML=data.banners.map(b=>`<div class="banner-row"><div class="banner-preview"><b>${esc(b.title)}</b><div class="note">${esc(b.subtitle)}</div></div><span class="status ${b.active?'good':''}">${b.active?'Active':'Inactive'}</span><button class="secondary" onclick="toggleBanner(${b.id})">Toggle</button><button class="danger" onclick="del('banners',${b.id})">Delete</button></div>`).join('')||'<div class="empty">No banners yet</div>';
+}
+function openModal(title,html){document.getElementById('modal-title').textContent=title;document.getElementById('modal-content').innerHTML=html;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function field(label,name,value='',type='text'){return `<div class="field"><label>${label}</label><input name="${name}" type="${type}" value="${esc(value)}" required></div>`}
+function openProduct(id=null){let p=data.products.find(x=>x.id===id)||{};openModal(id?'Edit product':'Add product',`<form id="product-form">${field('Product name','name',p.name)}<div class="grid2">${field('SKU','sku',p.sku)}<div class="field"><label>Category</label><select name="category"><option ${p.category==='Earrings'?'selected':''}>Earrings</option><option ${p.category==='Necklaces'?'selected':''}>Necklaces</option><option ${p.category==='Bracelets'?'selected':''}>Bracelets</option><option ${p.category==='Rings'?'selected':''}>Rings</option></select></div></div><div class="grid2">${field('Price (INR)','price',p.price??'','number')}${field('Stock quantity','stock',p.stock??0,'number')}</div>${field('Image URL (optional)','image',p.image||'') }<div class="field"><label>Description</label><textarea name="description">${esc(p.description||'')}</textarea></div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save product</button></div></form>`);
+ document.getElementById('product-form').onsubmit=e=>{e.preventDefault();let f=new FormData(e.target),obj=Object.fromEntries(f);obj.price=Number(obj.price);obj.stock=Number(obj.stock);if(id){Object.assign(p,obj)}else{obj.id=Date.now();data.products.push(obj)}save();closeModal()}}
+function adjustStock(id){let p=data.products.find(x=>x.id===id);let n=prompt('Enter new stock quantity for '+p.name,p.stock);if(n!==null&&n.trim()!==''&&Number(n)>=0){p.stock=Number(n);save()}}
+function openOrder(){openModal('Add demo order',`<form id="order-form">${field('Customer name','customer') }<div class="grid2">${field('Order total (INR)','total','','number')}${field('Order date','date',new Date().toISOString().slice(0,10),'date')}</div><div class="field"><label>Status</label><select name="status"><option>New</option><option>Processing</option><option>Shipped</option><option>Completed</option><option>Cancelled</option></select></div><div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save order</button></div></form>`);
+ document.getElementById('order-form').onsubmit=e=>{e.preventDefault();let o=Object.fromEntries(new FormData(e.target));o.id=Date.now().toString().slice(-6);o.total=Number(o.total);data.orders.push(o);if(!data.customers.some(c=>c.name===o.customer))data.customers.push({id:Date.now(),name:o.customer,email:'',phone:''});save();closeModal()}}
+function cycleOrder(id){let o=data.orders.find(x=>x.id===id),s=['New','Processing','Shipped','Completed','Cancelled'];o.status=s[(s.indexOf(o.status)+1)%s.length];save()}
+function openCustomer(){openModal('Add customer',`<form id="customer-form">${field('Full name','name')}${field('Email','email','','email')}${field('Phone','phone','')}<div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save customer</button></div></form>`);document.getElementById('customer-form').onsubmit=e=>{e.preventDefault();let o=Object.fromEntries(new FormData(e.target));o.id=Date.now();data.customers.push(o);save();closeModal()}}
+function openBanner(){openModal('Add homepage banner',`<form id="banner-form">${field('Headline','title')}${field('Supporting text','subtitle')}<div class="form-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save banner</button></div></form>`);document.getElementById('banner-form').onsubmit=e=>{e.preventDefault();let o=Object.fromEntries(new FormData(e.target));o.id=Date.now();o.active=true;data.banners.push(o);save();closeModal()}}
+function toggleBanner(id){let b=data.banners.find(x=>x.id===id);b.active=!b.active;save()}
+function del(type,id){if(confirm('Delete this item?')){data[type]=data[type].filter(x=>x.id!==id);save()}}
+render();
+</script>
+</body>
+</html>
